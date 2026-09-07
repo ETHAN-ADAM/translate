@@ -7,7 +7,7 @@
 进入 GitHub 仓库的 `Actions`，运行 `Build cross-platform releases`，下载生成的：
 
 ```text
-smiles转化器.exe
+smilestranlates-win.exe
 ```
 
 双击即可运行，不需要安装 Python、Conda 或 RDKit。
@@ -17,7 +17,7 @@ smiles转化器.exe
 在 GitHub Actions 构建完成后下载 macOS 版本，解压后运行：
 
 ```text
-smiles转化器.app
+smilestranslate-mac.app
 ```
 
 ### Linux
@@ -25,7 +25,7 @@ smiles转化器.app
 在 GitHub Actions 构建完成后下载：
 
 ```text
-smiles转化器-Linux-x86_64
+smilestranslate-Linux-x86_64
 ```
 
 赋予执行权限后运行：
