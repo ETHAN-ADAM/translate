@@ -177,36 +177,6 @@ chmod +x scripts/build_linux.sh
 ```text
 dist/smilestranslate-Linux-x86_64
 ```
-
-### GitHub 自动构建三个系统版本
-
-把整个项目上传到 GitHub 后：
-
-1. 进入仓库。
-2. 点击 `Actions`。
-3. 选择 `Build cross-platform releases`。
-4. 点击右上角 `Run workflow`。
-5. 再点击绿色的 `Run workflow`。
-6. 等待三个任务完成：
-
-```text
-Windows EXE
-macOS APP
-Linux executable
-```
-
-7. 三个任务全部变成绿色勾号后，打开本次运行记录。
-8. 页面底部 `Artifacts` 会出现三个可下载版本。
-
-如果需要正式发布一个版本，可以创建 Git tag：
-
-```bash
-git tag v1.0.0
-git push origin v1.0.0
-```
-
-GitHub Actions 会自动把对应构建文件加入 GitHub Release。
-
 ## 使用
 
 ### 单个 SMILES
