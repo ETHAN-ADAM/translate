@@ -17,107 +17,70 @@
 - `rdkit_version`
 - `schema`
 - `sha256`
-
-默认隐私模式下 **不输出 `canonical_smiles`**。GUI 中可手动勾选后输出。
-
 ---
-
 ## 1. 终端用户下载
-
 GitHub Actions 构建后会生成：
-
 ### Windows
-
 ```text
-smiles转化器.exe
+smilestranslate-windows.exe
 ```
-
 直接双击运行，不需要安装 Python、Conda 或 RDKit。
-
 ### macOS
-
 ```text
-smiles转化器.app
+smilestranslate-mac.app
 ```
-
 GitHub Release 中以 ZIP 形式提供。
-
 ### Linux
-
 ```text
-smiles转化器-Linux-x86_64
+smilestranslate-Linux-x86_64
 ```
-
 ---
-
 ## 2. 输入方式
-
 ### 单个 SMILES
-
 例如：
-
 ```text
 CCO
 ```
-
 ### 多个 SMILES：每行一个
-
 ```text
 CCO
 CCN
 c1ccccc1
 ```
-
 ### 多个 SMILES：名称 + SMILES
-
 建议使用 Tab：
-
 ```text
 乙醇    CCO
 乙胺    CCN
 苯      c1ccccc1
 ```
-
 也支持：
-
 ```text
 CCO    乙醇
 CCN    乙胺
 ```
-
 ### CSV
-
 推荐：
-
 ```csv
 name,SMILES
 ethanol,CCO
 ethylamine,CCN
 benzene,c1ccccc1
 ```
-
 程序会优先寻找 `SMILES` 列；没有标准列名时会尝试自动识别。
 
 ---
-
 ## 3. 批量输出
-
 软件支持三种批量输出：
-
 1. 每个分子单独一个 `.json`
 2. 所有分子合并成一个 `.jsonl`
 3. 所有分子合并成一个 JSON 数组
-
 ---
-
 ## 4. canonical_smiles
-
 默认：
-
 ```text
 ☐ 包含 "canonical_smiles"
 ```
-
 此时输出中完全没有该字段。
 
 勾选后：
