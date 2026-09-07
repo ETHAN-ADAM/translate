@@ -114,8 +114,6 @@ def read_smiles_table(path: Path) -> List[MoleculeRow]:
 
     smiles_aliases = {
         "smiles",
-        "canonical_smiles",
-        "canonicalsmiles",
         "isomeric_smiles",
         "molecule_smiles",
         "structure",

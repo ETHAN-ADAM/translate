@@ -42,7 +42,6 @@ class SmilesConverterApp(tk.Tk):
         self.geometry("1040x780")
         self.minsize(920, 680)
 
-        self.include_canonical = tk.BooleanVar(value=False)
         self.pretty_json = tk.BooleanVar(value=False)
         self.strict_environment = tk.BooleanVar(value=True)
         self.batch_output_mode = tk.StringVar(value="individual")
@@ -86,12 +85,6 @@ class SmilesConverterApp(tk.Tk):
 
         ttk.Checkbutton(
             settings,
-            text='包含 "canonical_smiles"',
-            variable=self.include_canonical,
-        ).pack(side="left", padx=(0, 18))
-
-        ttk.Checkbutton(
-            settings,
             text="美化 JSON",
             variable=self.pretty_json,
         ).pack(side="left", padx=(0, 18))
@@ -102,10 +95,6 @@ class SmilesConverterApp(tk.Tk):
             variable=self.strict_environment,
         ).pack(side="left")
 
-        ttk.Label(
-            settings,
-            text="默认隐私模式：不写入 canonical_smiles",
-        ).pack(side="right")
 
         notebook = ttk.Notebook(root)
         notebook.pack(fill="both", expand=True)
@@ -336,8 +325,7 @@ class SmilesConverterApp(tk.Tk):
                 "验证成功\n\n"
                 f"原子数：{mol.GetNumAtoms()}\n"
                 f"化学键数：{mol.GetNumBonds()}\n"
-                f"内部 canonical SMILES：{canonical}\n\n"
-                "默认隐私模式下，该字段不会写入 JSON。"
+                f"标准化 SMILES：{canonical}"
             )
         except Exception as exc:
             self._set_single_info(f"验证失败：{exc}")
@@ -363,13 +351,9 @@ class SmilesConverterApp(tk.Tk):
 
             data = build_feature_json(
                 smiles,
-                include_canonical_smiles=bool(self.include_canonical.get()),
                 strict_environment=bool(self.strict_environment.get()),
             )
-            validate_feature_json(
-                data,
-                require_canonical_smiles=bool(self.include_canonical.get()),
-            )
+            validate_feature_json(data)
             save_json(
                 data,
                 Path(filename),
@@ -536,7 +520,6 @@ class SmilesConverterApp(tk.Tk):
         if not target:
             return
 
-        include_canonical = bool(self.include_canonical.get())
         pretty = bool(self.pretty_json.get())
         strict = bool(self.strict_environment.get())
 
@@ -549,7 +532,6 @@ class SmilesConverterApp(tk.Tk):
                 rows,
                 mode,
                 Path(target),
-                include_canonical,
                 pretty,
                 strict,
             ),
@@ -562,7 +544,6 @@ class SmilesConverterApp(tk.Tk):
         rows,
         mode,
         target,
-        include_canonical,
         pretty,
         strict,
     ):
@@ -574,13 +555,9 @@ class SmilesConverterApp(tk.Tk):
                 for index, row in enumerate(rows, start=1):
                     data = build_feature_json(
                         row.smiles,
-                        include_canonical_smiles=include_canonical,
                         strict_environment=strict,
                     )
-                    validate_feature_json(
-                        data,
-                        require_canonical_smiles=include_canonical,
-                    )
+                    validate_feature_json(data)
 
                     base = safe_filename(
                         row.name,
@@ -611,13 +588,9 @@ class SmilesConverterApp(tk.Tk):
                     for index, row in enumerate(rows, start=1):
                         data = build_feature_json(
                             row.smiles,
-                            include_canonical_smiles=include_canonical,
                             strict_environment=strict,
                         )
-                        validate_feature_json(
-                            data,
-                            require_canonical_smiles=include_canonical,
-                        )
+                        validate_feature_json(data)
 
                         record = {"name": row.name, **data}
                         f.write(
@@ -641,13 +614,9 @@ class SmilesConverterApp(tk.Tk):
                 for index, row in enumerate(rows, start=1):
                     data = build_feature_json(
                         row.smiles,
-                        include_canonical_smiles=include_canonical,
                         strict_environment=strict,
                     )
-                    validate_feature_json(
-                        data,
-                        require_canonical_smiles=include_canonical,
-                    )
+                    validate_feature_json(data)
 
                     output.append({"name": row.name, **data})
                     self.result_queue.put(

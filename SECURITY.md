@@ -1,19 +1,4 @@
-# Security and privacy
+# Security
 
-smiles转化器 is designed as an offline local application.
-
-## Network
-
-The application source does not perform HTTP requests, telemetry, analytics,
-cloud uploads, or automatic update checks.
-
-## Molecular data
-
-SMILES strings are processed locally by RDKit.
-
-By default, exported JSON does not contain `canonical_smiles`.
-
-## Build artifacts
-
-Unsigned Windows executables may trigger Microsoft SmartScreen / Smart App Control.
-For public commercial distribution, code signing is recommended.
+本程序离线运行，不包含网络上传、遥测或自动更新功能。
+SMILES 和生成的分子特征只在本机处理。

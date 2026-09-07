@@ -21,8 +21,6 @@ Feature set:
 - schema
 - sha256
 
-By default canonical_smiles is NOT exported.
-It can be enabled explicitly.
 """
 
 from __future__ import annotations
@@ -258,7 +256,6 @@ def calculate_payload_sha256(payload: Dict[str, Any]) -> str:
 
 def build_feature_json(
     smiles: str,
-    include_canonical_smiles: bool = False,
     strict_environment: bool = True,
 ) -> Dict[str, Any]:
     """
@@ -290,12 +287,7 @@ def build_feature_json(
                 f"实际 {rdBase.rdkitVersion}。"
             )
 
-    payload: Dict[str, Any] = {}
-
-    if include_canonical_smiles:
-        payload["canonical_smiles"] = canonical
-
-    payload.update({
+    payload: Dict[str, Any] = {
         "descriptor_names": descriptor_names,
         "descriptors": descriptor_values,
         "fingerprint_sizes": {
@@ -308,7 +300,7 @@ def build_feature_json(
         "graph": mol_to_graph(mol),
         "rdkit_version": rdBase.rdkitVersion,
         "schema": SCHEMA,
-    })
+    }
 
     return {
         "payload": payload,
@@ -316,10 +308,7 @@ def build_feature_json(
     }
 
 
-def validate_feature_json(
-    data: Dict[str, Any],
-    require_canonical_smiles: bool | None = None,
-) -> None:
+def validate_feature_json(data: Dict[str, Any]) -> None:
     if "payload" not in data or "sha256" not in data:
         raise AssertionError("缺少 payload 或 sha256。")
 
@@ -337,12 +326,6 @@ def validate_feature_json(
     missing = required - set(payload)
     if missing:
         raise AssertionError(f"缺少字段：{sorted(missing)}")
-
-    if require_canonical_smiles is True and "canonical_smiles" not in payload:
-        raise AssertionError("要求 canonical_smiles，但输出中不存在。")
-
-    if require_canonical_smiles is False and "canonical_smiles" in payload:
-        raise AssertionError("隐私模式输出中不应存在 canonical_smiles。")
 
     if len(payload["descriptor_names"]) != len(payload["descriptors"]):
         raise AssertionError("descriptor_names 与 descriptors 长度不一致。")
