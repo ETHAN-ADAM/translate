@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 
 Write-Host "==============================================="
-Write-Host "Building smiles转化器.exe"
+Write-Host "Building smilestranlates-win.exe"
 Write-Host "==============================================="
 
 $env:PYTHONPATH = "$PSScriptRoot\..\src"
@@ -11,7 +11,7 @@ python -m PyInstaller `
   --clean `
   --onefile `
   --windowed `
-  --name "smiles转化器" `
+  --name "smilestranlates-win" `
   --paths "$PSScriptRoot\..\src" `
   --collect-all rdkit `
   --collect-all numpy `
@@ -19,4 +19,4 @@ python -m PyInstaller `
 
 Write-Host ""
 Write-Host "Build complete:"
-Write-Host "dist\smiles转化器.exe"
+Write-Host "dist\smilestranlates-win.exe"

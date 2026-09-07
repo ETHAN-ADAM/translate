@@ -8,10 +8,10 @@ python -m PyInstaller \
   --noconfirm \
   --clean \
   --windowed \
-  --name "smiles转化器" \
+  --name "smilestranslate-mac" \
   --paths "$ROOT/src" \
   --collect-all rdkit \
   --collect-all numpy \
   "$ROOT/src/main.py"
 
-echo "Build complete: dist/smiles转化器.app"
+echo "Build complete: dist/smilestranslate-mac.app"

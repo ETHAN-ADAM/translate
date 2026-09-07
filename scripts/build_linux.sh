@@ -9,11 +9,11 @@ python -m PyInstaller \
   --clean \
   --onefile \
   --windowed \
-  --name "smiles转化器" \
+  --name "smilestranslate-Linux-x86_64" \
   --paths "$ROOT/src" \
   --collect-all rdkit \
   --collect-all numpy \
   "$ROOT/src/main.py"
 
-chmod +x "dist/smiles转化器"
-echo "Build complete: dist/smiles转化器"
+chmod +x "dist/smilestranslate-Linux-x86_64"
+echo "Build complete: dist/smilestranslate-Linux-x86_64"
