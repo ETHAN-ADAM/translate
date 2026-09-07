@@ -1,0 +1,9 @@
+{
+  "app_name": "smiles转化器",
+  "version": "1.0.0",
+  "windows_binary": "smiles转化器.exe",
+  "macos_binary": "smiles转化器.app",
+  "linux_binary": "smiles转化器-Linux-x86_64",
+  "rdkit_version": "2026.03.5",
+  "descriptor_count": 217
+}

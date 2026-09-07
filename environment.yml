@@ -1,0 +1,12 @@
+name: smiles-converter
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - rdkit=2026.03.5
+  - numpy
+  - tk
+  - pip
+  - pip:
+      - pyinstaller>=6.0
+      - pytest>=8.0
