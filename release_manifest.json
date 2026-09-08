@@ -1,9 +1,10 @@
 {
   "app_name": "smiles转化器",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "windows_binary": "smilestranlates-win.exe",
   "macos_binary": "smilestranslate-mac.app",
   "linux_binary": "smilestranslate-Linux-x86_64",
   "rdkit_version": "2026.03.5",
-  "descriptor_count": 217
+  "descriptor_count": 217,
+  "schema": "cardiac-ic50-1.0-features-1"
 }

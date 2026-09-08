@@ -1,5 +1,19 @@
 # smiles转化器
 
+## 1.0.1：预测系统1.0兼容性与打包修复
+
+- 默认输出 `cardiac-ic50-1.0-features-1`，对应心脏离子通道 IC50 智能预测系统1.0。
+- JSON 不含 `canonical_smiles`；缺失描述符使用 `null`，不写入 `NaN` / `Infinity`。SHA256 根据最终 payload 重新计算。
+- 将 RDKit 的外部 Data 目录一起打包，启动时使用内置数据路径；正常状态应为 `RDKit 2026.03.5 | Descriptors 217 | 环境匹配`。
+- Windows、macOS、Linux 构建均运行成品自检：隔离 Python/Conda 路径，比较9个公开示例的完整输出与源码结果，并核对预测系统1.0参考哈希。自检失败则不发布产物。
+- 每个 Actions 构建包包含 `win32-validation.json`、`darwin-validation.json` 或 `linux-validation.json` 验证报告。旧 Actions 任务中的 EXE 不会自动更新，请下载此修复之后成功构建的产物。
+
+已有旧格式 JSON 应使用新版从原 SMILES 重新生成，不要只手改 schema；否则 SHA256 校验也会失败。预测系统1.0每次导入一个分子对象，批量导出请选择“每个分子单独 JSON”，不要上传 JSONL 或 JSON 数组。
+
+系统1.0的当前图格式不能唯一恢复 E/Z 双键立体信息或“其他”原子类别，新版会提示改用预测系统的 SMILES 输入，不会静默丢弃这些信息。
+
+运行回归测试：`PYTHONPATH=src pytest -q`（PowerShell 使用 `$env:PYTHONPATH="src"; pytest -q`）。
+
 ## 安装
 
 ### Windows
